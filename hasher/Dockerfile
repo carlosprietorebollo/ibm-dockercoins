@@ -7,6 +7,6 @@
  ENV GEM_HOME /usr/local/bundle
  ENV PATH $GEM_HOME/bin:$PATH
  
- CMD ["hasher.rb"]
+ CMD ["/hasher.rb"]
  ENTRYPOINT ["ruby"]
  EXPOSE 8080
