@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: redis-deploy
+spec:
+  replicas: 1
+  selector: 
+    matchLabels: 
+      app: redis-label
+  template:
+    metadata: 
+      labels:
+        app: redis-label
+    spec:
+      containers:
+        -
+          image: carlosprietorebollo/ibm-dockercoins:latest-redis
+          name: redis-container
+          ports: 
+            -
+              containerPort: 6379
+              protocol: TCP
