@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: webui-deploy
+spec:
+  replicas: 1
+  selector: 
+    matchLabels: 
+      app: webui-label
+  template:
+    metadata: 
+      labels:
+        app: webui-label
+    spec:
+      containers:
+        -
+          image: carlosprietorebollo/ibm-dockercoins:latest-webui
+          name: webui-container
+          ports: 
+            -
+              containerPort: 8080
+              protocol: TCP
