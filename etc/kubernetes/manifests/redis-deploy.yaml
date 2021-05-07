@@ -20,3 +20,14 @@ spec:
             -
               containerPort: 6379
               protocol: TCP
+          volumeMounts: 
+            -
+              mountPath: /data
+              name: redis-volume
+      volumes:
+        -
+          name: redis-volume
+          persistentVolumeClaim: 
+            claimName: redis-pvc
+            readOnly: false
+            
