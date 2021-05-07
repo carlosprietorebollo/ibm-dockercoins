@@ -1,0 +1,41 @@
+name: ci
+on: 
+  push:
+    branches:
+      - docker
+jobs:
+  Dockerfile: 
+    runs-on: ubuntu-18.04
+    steps:
+      -
+        name: checkout
+        uses: actions/checkout@v2
+      -
+        name: test
+        run: |
+          set -x
+          docker build -t hasher hasher
+          docker build -t rng rng
+          docker build -t webui webui
+          docker build -t worker worker
+          docker network create hasher 
+          docker network create redis
+          docker network create rng
+          docker volume create redis
+          docker run -d --name redis --network redis --volume redis:/data redis:alpine
+          docker run -d --name hasher --network hasher hasher 
+          docker run -d --name rng --network rng rng 
+          docker run -d --name worker --network redis worker 
+          docker network connect hasher worker 
+          docker network connect rng worker 
+          docker run -d --name webui --network redis webui
+          while true
+            do
+              docker logs worker 2>& 1 | grep 'Coin found' && break
+            done
+
+          
+
+          
+          
+          
