@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         -
-          image: carlosprietorebollo/ibm-dockercoins:latest-redis
+          image: redis:alpine
           name: redis-container
           ports: 
             -
